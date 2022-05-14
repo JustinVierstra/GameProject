@@ -9,7 +9,6 @@ public class NPCcontroller
 	BehaviorTree bt = new BehaviorTree(BTCompositeType.SELECTOR);
 	boolean nearFlag = false;
 	long thinkStartTime, tickStartTime, lastThinkUpdateTime, lastTickUpdateTime;
-	//GameAIServerUDP server;
 	GameServerUDP server;
 	double criteria = 2.0;
 
@@ -17,43 +16,17 @@ public class NPCcontroller
 	{	npc.updateLocation();
 	}
 
-	// public void start(GameAIServerUDP s)
-	// {	thinkStartTime = System.nanoTime();
-	// 	tickStartTime = System.nanoTime();
-	// 	lastThinkUpdateTime = thinkStartTime;
-	// 	lastTickUpdateTime = tickStartTime;
-	// 	server = s;
-	// 	setupNPCs();
-	// 	setupBehaviorTree();
-	// 	npcLoop();
-	// }
-
 	public void start(GameServerUDP s)
 	{	
-		System.out.println("test1");
 		thinkStartTime = System.nanoTime();
 		tickStartTime = System.nanoTime();
-		System.out.println("test2");
 		lastThinkUpdateTime = thinkStartTime;
 		lastTickUpdateTime = tickStartTime;
-		System.out.println("test3");
 		server = s;
-		System.out.println("test4");
 		setupNPCs();
 		setupBehaviorTree();
 		npcLoop();
 	}
-
-	// public void start(GameServerTCP s)
-	// {	thinkStartTime = System.nanoTime();
-	// 	tickStartTime = System.nanoTime();
-	// 	lastThinkUpdateTime = thinkStartTime;
-	// 	lastTickUpdateTime = tickStartTime;
-	// 	server = s;
-	// 	setupNPCs();
-	// 	setupBehaviorTree();
-	// 	npcLoop();
-	// }
 
 	public NPC getNPC() { return npc; }
 	public void setNearFlag(boolean b) { nearFlag=b; }

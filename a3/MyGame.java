@@ -190,7 +190,7 @@ public class MyGame extends VariableFrameRateGame
 		avatarS = new ImportedModel("bear.obj");
 		
 		terrS = new TerrainPlane(1000);
-		ghostS = new ImportedModel("bear.obj"); /*new ImportedModel("dolphinHighPoly.obj");*/
+		ghostS = new ImportedModel("bear.obj");
 
 		// To run comment 196/197
 		// bearS = new AnimatedShape("bear.rkm", "bear.rks"); 
@@ -221,7 +221,8 @@ public class MyGame extends VariableFrameRateGame
 	{	Matrix4f initialTranslation, initialRotation, initialScale;
 
 		// build dolphin avatar
-		avatar = new GameObject(GameObject.root(), avatarS, avatarTx); //avatar = new GameObject(GameObject.root(), avatarS, avatarTx);
+		// Change bearS to avatarS to compile
+		avatar = new GameObject(GameObject.root(), avatarS, avatarTx); //avatar = new GameObject(GameObject.root(), bearS, avatarTx);
 		initialTranslation = (new Matrix4f()).translation(avatarX, avatarY, avatarZ);
 		avatar.setLocalTranslation(initialTranslation);
 		initialRotation = (new Matrix4f()).rotationY((float)java.lang.Math.toRadians(avatarRot));
@@ -332,20 +333,6 @@ public class MyGame extends VariableFrameRateGame
 			balls[i].setPhysicsObject(ballsP[i]);
 		}
 
-		// Matrix4f translation = new Matrix4f(ball1.getLocalTranslation());
-		// tempTransform = toDoubleArray(translation.get(vals));
-		// ball1P = physicsEngine.addSphereObject(physicsEngine.nextUID(), mass, tempTransform, 0.75f);
-		// ball1P.setBounciness(1.0f);
-		// ball1.setPhysicsObject(ball1P);
-		
-		// translation = new Matrix4f(ball2.getLocalTranslation());
-		// tempTransform = toDoubleArray(translation.get(vals));
-		// ball2P = physicsEngine.addSphereObject(physicsEngine.nextUID(), mass, tempTransform, 0.75f);
-		// ball2P.setBounciness(1.0f);
-		// ball2.setPhysicsObject(ball2P);
-
-		//avatar.setPhysicsObject(avatarP);
-
 		setupNetworking();
 
 	// build some action objects for doing things in response to user input
@@ -371,10 +358,6 @@ public class MyGame extends VariableFrameRateGame
 				im.associateAction(con, net.java.games.input.Component.Identifier.Key.D,
 				turnAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
 
-				// //Toggle Lines
-				// im.associateAction(con, net.java.games.input.Component.Identifier.Key.Z,
-				// renderLinesAction, InputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
-
 				//Toggle Physics
 				im.associateAction(con, net.java.games.input.Component.Identifier.Key.SPACE,
 				togglePhysicsAction, InputManager.INPUT_ACTION_TYPE.ON_PRESS_ONLY);
@@ -385,16 +368,6 @@ public class MyGame extends VariableFrameRateGame
 				moveAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
 				im.associateAction(con, net.java.games.input.Component.Identifier.Axis.RX, 
 				turnAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN); 
-
-				// im.associateAction(gpName, net.java.games.input.Component.Identifier.Button._0, 
-				// zoomCameraAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-				// im.associateAction(gpName, net.java.games.input.Component.Identifier.Button._3, 
-				// zoomCameraAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-
-				// im.associateAction(gpName, net.java.games.input.Component.Identifier.Button._1, 
-				// panCameraAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-				// im.associateAction(gpName, net.java.games.input.Component.Identifier.Button._2, 
-				// panCameraAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
 
 			}
 		}
@@ -410,11 +383,9 @@ public class MyGame extends VariableFrameRateGame
    		 return; 
   		 } 
   		resource1 = audioMgr.createAudioResource("assets/sounds/bee.wav", AudioResourceType.AUDIO_SAMPLE); 
-  		//resource2 = audioMgr.createAudioResource( "assets/sounds/ocean.wav", AudioResourceType.AUDIO_SAMPLE);
 		for(int i=0;i<beeSound.length;i++){
 			beeSound[i] = new Sound(resource1, SoundType.SOUND_EFFECT, 100, true); 
 			beeSound[i].initialize(audioMgr); 
-			//oceanSound.initialize(audioMgr); 
 			beeSound[i].setMaxDistance(10.0f); 
 			beeSound[i].setMinDistance(0.5f); 
 			beeSound[i].setRollOff(5.0f); 
@@ -424,7 +395,7 @@ public class MyGame extends VariableFrameRateGame
 			beeSound[i].setLocation(balls[i].getWorldLocation()); 
 			beeSound[i].play();
 		}
-  		//oceanSound.setLocation(rainTorus.getWorldLocation()); 
+
   		setEarParameters();  
  	} 
 
@@ -501,11 +472,6 @@ public class MyGame extends VariableFrameRateGame
 
 		// update inputs and camera
 		im.update((float)elapsedTime);
-
-		//update altitude of dolphin based on height map
-		// Vector3f loc = dolphin.getWorldLocation();
-		// float height = terr.getHeight(loc.x(), loc.z());
-		// dolphin.setLocalLocation(new Vector3f(loc.x(), height, loc.z()));
 
 		orbitController.updateCameraPosition();
 		processNetworking((float)elapsedTime);
@@ -715,20 +681,6 @@ public class MyGame extends VariableFrameRateGame
 			{	protClient.sendByeMessage();
 			}
 		}
-	}
-
-	public void setLineStatus(){
-		// if(showLines){
-		// 	showLines = false;
-		// 	x.getRenderStates().disableRendering();
-		// 	y.getRenderStates().disableRendering();
-		// 	z.getRenderStates().disableRendering();
-		// }else{
-		// 	showLines = true;
-		// 	x.getRenderStates().enableRendering();
-		// 	y.getRenderStates().enableRendering();
-		// 	z.getRenderStates().enableRendering();
-		// }
 	}
 
 }
